@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="myWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1060</width>
+      <height>660</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_draw">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>20</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Рисовать</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_option">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>90</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Пиксель</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Линия</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_inputX_1">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>155</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Input X1:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_inputY_1">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>250</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Input Y1:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_inputX_1">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>200</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_inputY_1">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>290</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_inputY_2">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>440</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Input Y2:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_inputX_2">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>345</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Input X2:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_inputY_2">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>480</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_inputX_2">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>390</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_clear">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>630</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Очистить</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_inputWidth">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>570</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_inputY_3">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>530</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Размер кисти:</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>myWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">mywidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
