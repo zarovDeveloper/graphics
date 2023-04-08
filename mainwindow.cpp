@@ -123,6 +123,11 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
 {
     if (index == 0) //choose pixel
     {
+        ui->label_inputX_1->setVisible(true);
+        ui->label_inputY_1->setVisible(true);
+        ui->spinBox_inputX_1->setVisible(true);
+        ui->spinBox_inputY_1->setVisible(true);
+
         ui->label_inputX_2->setVisible(false);
         ui->label_inputY_2->setVisible(false);
         ui->spinBox_inputX_2->setVisible(false);
@@ -130,6 +135,11 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 1) //choose line
     {
+        ui->label_inputX_1->setVisible(true);
+        ui->label_inputY_1->setVisible(true);
+        ui->spinBox_inputX_1->setVisible(true);
+        ui->spinBox_inputY_1->setVisible(true);
+
         ui->label_inputX_2->setVisible(true);
         ui->label_inputY_2->setVisible(true);
         ui->spinBox_inputX_2->setVisible(true);
