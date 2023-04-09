@@ -30,24 +30,62 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         int x = ui->spinBox_inputX_1->value();
         int y = ui->spinBox_inputY_1->value();
 
-        int width = ui->spinBox_inputWidth->value();
+        double width = ui->spinBox_inputWidth->value();
         pixel pixel;
 
-        int a, r, g, b;
-        QColor color;
 
-        color = QColorDialog::getColor();
+        if ((x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0)) //if print out of range
+        {
+            //notification generation
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Ошибка");
+            msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int res = msgBox.exec();
+            switch (res)
+            {//check push button
+            case QMessageBox::Yes:
+            {//push button yes
+                int a, r, g, b;
+                QColor color;
 
-        if (color.isValid())
-        {//if choose OK in color dialog menu
-            color.getRgb(&r, &g, &b, &a);
-            pixel.setRGBA(r, g, b, a);
+                color = QColorDialog::getColor();
 
-            pixel.setXY(x, y);
-            pixel.draw(ui->widget->im, width);
-            update();
+                if (color.isValid())
+                {//if choose OK in color dialog menu
+                    color.getRgb(&r, &g, &b, &a);
+                    pixel.setRGBA(r, g, b, a);
+
+                    pixel.setXY(x, y);
+                    pixel.draw(ui->widget->im, int(width));
+                    update();
+                }
+                break;
+            }
+            case QMessageBox::No:
+            {
+                break;
+            }
+            }
         }
+        else
+        {
+            int a, r, g, b;
+            QColor color;
 
+            color = QColorDialog::getColor();
+
+            if (color.isValid())
+            {//if choose OK in color dialog menu
+                color.getRgb(&r, &g, &b, &a);
+                pixel.setRGBA(r, g, b, a);
+
+                pixel.setXY(x, y);
+                pixel.draw(ui->widget->im, int(width));
+                update();
+            }
+        }
         break;
     }
     case 1: //line
@@ -61,26 +99,64 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         int x2 = ui->spinBox_inputX_2->value();
         int y2 = ui->spinBox_inputY_2->value();
 
-        int width = ui->spinBox_inputWidth->value();
+        double width = ui->spinBox_inputWidth->value();
 
-        //init color
-        int a, r, g, b;
-        QColor color;
+        if ((x1 + width / 2 > ui->widget->width()) or (x1 - width / 2 < 0) or (y1 + width / 2 > ui->widget->height()) or (y1 - width / 2 < 0) or (x2 + width / 2 > ui->widget->width()) or (x2 - width / 2 < 0) or (y2 + width / 2 > ui->widget->height()) or (y2 - width / 2 < 0))
+        {//if print out of range
+            //notification generation
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Ошибка");
+            msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int res = msgBox.exec();
+            switch (res)
+            {//check push button
+            case QMessageBox::Yes:
+            {//push button yes
+                int a, r, g, b;
+                QColor color;
 
-        color = QColorDialog::getColor();
+                color = QColorDialog::getColor();
 
-        if (color.isValid())
-        {//if choose OK in color dialog menu
-            color.getRgb(&r, &g, &b, &a);
-            line.setRGBA(r, g, b, a);
+                if (color.isValid())
+                {//if choose OK in color dialog menu
+                    color.getRgb(&r, &g, &b, &a);
+                    line.setRGBA(r, g, b, a);
 
-            //set coord in line
-            line.start.setXY(x1, y1);
-            line.end.setXY(x2, y2);
-            line.draw(ui->widget->im, width);
-            update();
+                    line.start.setXY(x1, y1);
+                    line.end.setXY(x2, y2);
+                    line.draw(ui->widget->im, int(width));
+                    update();
+                }
+                break;
+            }
+            case QMessageBox::No:
+            {
+                break;
+            }
+            }
         }
+        else
+        {
+            //init color
+            int a, r, g, b;
+            QColor color;
 
+            color = QColorDialog::getColor();
+
+            if (color.isValid())
+            {//if choose OK in color dialog menu
+                color.getRgb(&r, &g, &b, &a);
+                line.setRGBA(r, g, b, a);
+
+                //set coord in line
+                line.start.setXY(x1, y1);
+                line.end.setXY(x2, y2);
+                line.draw(ui->widget->im, int(width));
+                update();
+            }
+        }
         break;
     }
     }

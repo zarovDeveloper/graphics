@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include <QColorDialog>
-#include "mywidget.h"
+#include <QMessageBox>
+#include "myWidget.h"
 #include "pixel.h"
 #include "line.h"
 
