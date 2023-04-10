@@ -8,6 +8,7 @@
 #include "pixel.h"
 #include "line.h"
 #include "rect.h"
+#include "ellipse.h"
 
 
 

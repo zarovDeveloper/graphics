@@ -32,7 +32,8 @@ SOURCES += \
     line.cpp \
     myWidget.cpp \
     pixel.cpp \
-    rect.cpp
+    rect.cpp \
+    ellipse.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     line.h \
     myWidget.h \
     pixel.h \
-    rect.h
+    rect.h \
+    ellipse.h
 
 FORMS += \
         mainwindow.ui

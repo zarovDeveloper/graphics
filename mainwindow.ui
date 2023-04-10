@@ -71,6 +71,11 @@
       <string>Прямоугольник</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Эллипс</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label_inputX_1">
     <property name="geometry">
