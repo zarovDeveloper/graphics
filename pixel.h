@@ -12,7 +12,12 @@ class pixel : public point, public color
 public:
     pixel();
 
-    void draw(QImage &im, int width);
+    void draw(QImage &im);
+
+    void setWidth(int width);
+
+private:
+    int w;
 };
 
 #endif // PIXEL_H

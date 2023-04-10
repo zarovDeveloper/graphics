@@ -58,7 +58,9 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
                     pixel.setRGBA(r, g, b, a);
 
                     pixel.setXY(x, y);
-                    pixel.draw(ui->widget->im, int(width));
+
+                    pixel.setWidth(int(width));
+                    pixel.draw(ui->widget->im);
                     update();
                 }
                 break;
@@ -82,7 +84,10 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
                 pixel.setRGBA(r, g, b, a);
 
                 pixel.setXY(x, y);
-                pixel.draw(ui->widget->im, int(width));
+
+                pixel.setWidth(int(width));
+                pixel.draw(ui->widget->im);
+
                 update();
             }
         }
@@ -126,7 +131,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
                     line.start.setXY(x1, y1);
                     line.end.setXY(x2, y2);
-                    line.draw(ui->widget->im, int(width));
+                    line.setWidth(int(width));
+                    line.draw(ui->widget->im);
                     update();
                 }
                 break;
@@ -153,15 +159,89 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
                 //set coord in line
                 line.start.setXY(x1, y1);
                 line.end.setXY(x2, y2);
-                line.draw(ui->widget->im, int(width));
+                line.setWidth(int(width));
+                line.draw(ui->widget->im);
                 update();
+            }
+        }
+        break;
+    }
+    case 2: //rect
+    {
+        class rect rect;
+
+        int x = ui->spinBox_inputX_1->value();
+        int y = ui->spinBox_inputY_1->value();
+        int width = ui->spinBox_inputX_2->value();
+        int height = ui->spinBox_inputY_2->value();
+
+        double widthPen = ui->spinBox_inputWidth->value();
+
+        if ((x + width > ui->widget->width()) or (y + height > ui->widget->height()) or (x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0))
+        {//if print out of range
+            //notification generation
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Ошибка");
+            msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int res = msgBox.exec();
+            switch (res)
+            {//check push button
+            case QMessageBox::Yes:
+            {//push button yes
+                int a, r, g, b;
+                QColor color;
+                color = QColorDialog::getColor();
+
+                if (color.isValid())
+                {//if choose OK in color dialog menu
+                    color.getRgb(&r, &g, &b, &a);
+                    rect.setRGBA(r, g, b, a);
+
+                    //set coord in rect
+                    rect.start.setXY(x, y);
+                    rect.setWidthAndHeight(width, height);
+
+                    rect.setWidthPen(int(widthPen));
+                    rect.draw(ui->widget->im);
+                    update();
+                }
+                break;
+            }
+            case QMessageBox::No:
+            {
+                break;
+            }
+            }
+        }
+        else
+        {
+            //init color
+            int a, r, g, b;
+            QColor color;
+
+            color = QColorDialog::getColor();
+
+            if (color.isValid())
+            {//if choose OK in color dialog menu
+                color.getRgb(&r, &g, &b, &a);
+                rect.setRGBA(r, g, b, a);
+
+                //set coord in rect
+                rect.start.setXY(x, y);
+                rect.setWidthAndHeight(width, height);
+
+                rect.setWidthPen(int(widthPen));
+                rect.draw(ui->widget->im);
+                update();
+                break;
             }
         }
         break;
     }
     }
 }
-
 void MainWindow::on_pushButton_clear_clicked() //button "Отчистить"
 {//clear widget
     ui->widget->clear();
@@ -199,6 +279,9 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
 {
     if (index == 0) //choose pixel
     {
+        ui->label_inputX_1->setText("Input X:");
+        ui->label_inputY_1->setText("Input Y:");
+
         ui->label_inputX_1->setVisible(true);
         ui->label_inputY_1->setVisible(true);
         ui->spinBox_inputX_1->setVisible(true);
@@ -211,6 +294,11 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 1) //choose line
     {
+        ui->label_inputX_1->setText("Input X1:");
+        ui->label_inputY_1->setText("Input Y1:");
+        ui->label_inputX_2->setText("Input X2:");
+        ui->label_inputY_2->setText("Input Y2:");
+
         ui->label_inputX_1->setVisible(true);
         ui->label_inputY_1->setVisible(true);
         ui->spinBox_inputX_1->setVisible(true);
@@ -221,5 +309,16 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
         ui->spinBox_inputX_2->setVisible(true);
         ui->spinBox_inputY_2->setVisible(true);
     }
+    else if (index == 2) //choose rectange
+    {
+        ui->label_inputX_1->setText("Input X:");
+        ui->label_inputY_1->setText("Input Y:");
+        ui->label_inputX_2->setText("Width:");
+        ui->label_inputY_2->setText("Height:");
 
+        ui->label_inputX_2->setVisible(true);
+        ui->label_inputY_2->setVisible(true);
+        ui->spinBox_inputX_2->setVisible(true);
+        ui->spinBox_inputY_2->setVisible(true);
+    }
 }

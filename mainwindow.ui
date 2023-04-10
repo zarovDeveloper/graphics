@@ -66,6 +66,11 @@
       <string>Линия</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Прямоугольник</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label_inputX_1">
     <property name="geometry">
@@ -82,7 +87,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input X1:</string>
+     <string>Input X:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_inputY_1">
@@ -100,7 +105,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input Y1:</string>
+     <string>Input Y:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_inputX_1">

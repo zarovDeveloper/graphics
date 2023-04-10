@@ -7,6 +7,7 @@
 #include "myWidget.h"
 #include "pixel.h"
 #include "line.h"
+#include "rect.h"
 
 
 

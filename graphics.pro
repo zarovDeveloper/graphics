@@ -31,7 +31,8 @@ SOURCES += \
     color.cpp \
     line.cpp \
     myWidget.cpp \
-    pixel.cpp
+    pixel.cpp \
+    rect.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     color.h \
     line.h \
     myWidget.h \
-    pixel.h
+    pixel.h \
+    rect.h
 
 FORMS += \
         mainwindow.ui
