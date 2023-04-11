@@ -2,11 +2,11 @@
 #define LINE_H
 
 #include "point.h"
-#include "color.h"
+#include "pen.h"
 #include <QImage>
 #include <QPainter>
 
-class line : public color
+class line
 {
 public:
     line();
@@ -16,12 +16,7 @@ public:
     point start;
     point end;
 
-    void setWidth(int width);
-
-
-private:
-
-    int w;
+    pen pen;
 };
 
 #endif // LINE_H

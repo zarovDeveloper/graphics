@@ -48,7 +48,7 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
             case QMessageBox::Yes:
             {//push button yes
                 int a, r, g, b;
-                QColor color = QColorDialog::getColor();
+                QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет точки");
 
                 if (color.isValid())
                 {//if choose OK in color dialog menu
@@ -72,7 +72,7 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         else
         {
             int a, r, g, b;
-            QColor color = QColorDialog::getColor();
+            QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет точки");
 
             if (color.isValid())
             {//if choose OK in color dialog menu
@@ -101,62 +101,80 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         int y2 = ui->spinBox_inputY_2->value();
 
         double width = ui->spinBox_inputWidth->value();
+        int styleLine = ui->comboBox_styleLine->currentIndex();
 
-        if ((x1 + width / 2 > ui->widget->width()) or (x1 - width / 2 < 0) or (y1 + width / 2 > ui->widget->height()) or (y1 - width / 2 < 0) or (x2 + width / 2 > ui->widget->width()) or (x2 - width / 2 < 0) or (y2 + width / 2 > ui->widget->height()) or (y2 - width / 2 < 0))
-        {//if print out of range
-            //notification generation
-            QMessageBox msgBox;
-            msgBox.setWindowTitle("Ошибка");
-            msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int res = msgBox.exec();
-            switch (res)
-            {//check push button
-            case QMessageBox::Yes:
-            {//push button yes
+        if (styleLine)
+        {
+            if ((x1 + width / 2 > ui->widget->width()) or (x1 - width / 2 < 0) or (y1 + width / 2 > ui->widget->height()) or (y1 - width / 2 < 0) or (x2 + width / 2 > ui->widget->width()) or (x2 - width / 2 < 0) or (y2 + width / 2 > ui->widget->height()) or (y2 - width / 2 < 0))
+            {//if print out of range
+                //notification generation
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Ошибка");
+                msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int res = msgBox.exec();
+                switch (res)
+                {//check push button
+                case QMessageBox::Yes:
+                {//push button yes
+
+                    //init color
+                    int a, r, g, b;
+
+                    QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
+
+                    if (color.isValid())
+                    {//if choose OK in color dialog menu
+                        color.getRgb(&r, &g, &b, &a);
+                        a = 255;
+                        line.pen.setRGBA(r, g, b, a);
+                        line.pen.setWidth(int(width));
+                        line.pen.setStyle(styleLine);
+
+                        //set coord in line
+                        line.start.setXY(x1, y1);
+                        line.end.setXY(x2, y2);
+
+                        line.draw(ui->widget->im);
+                        update();
+
+                    }
+                    break;
+                }
+                case QMessageBox::No:
+                {
+                    break;
+                }
+                }
+            }
+            else
+            {
+
+                //init color
                 int a, r, g, b;
-                QColor color = QColorDialog::getColor();
+                QColor color;
+
+                color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
 
                 if (color.isValid())
                 {//if choose OK in color dialog menu
                     color.getRgb(&r, &g, &b, &a);
-                    line.setRGBA(r, g, b, a);
+                    a = 255;
+                    line.pen.setRGBA(r, g, b, a);
+                    line.pen.setWidth(int(width));
+                    line.pen.setStyle(styleLine);
 
+                    //set coord in line
                     line.start.setXY(x1, y1);
                     line.end.setXY(x2, y2);
-                    line.setWidth(int(width));
+
                     line.draw(ui->widget->im);
                     update();
                 }
-                break;
-            }
-            case QMessageBox::No:
-            {
-                break;
-            }
-            }
-        }
-        else
-        {
-            //init color
-            int a, r, g, b;
-            QColor color;
 
-            color = QColorDialog::getColor();
-
-            if (color.isValid())
-            {//if choose OK in color dialog menu
-                color.getRgb(&r, &g, &b, &a);
-                line.setRGBA(r, g, b, a);
-
-                //set coord in line
-                line.start.setXY(x1, y1);
-                line.end.setXY(x2, y2);
-                line.setWidth(int(width));
-                line.draw(ui->widget->im);
-                update();
             }
+            break;
         }
         break;
     }
@@ -172,62 +190,116 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         int height = ui->spinBox_inputY_2->value();
 
         double widthPen = ui->spinBox_inputWidth->value(); //init width pen
+        int styleLine = ui->comboBox_styleLine->currentIndex();
+        int styleBrush = ui->comboBox_styleBrush->currentIndex();
 
-        if ((x + width > ui->widget->width()) or (y + height > ui->widget->height()) or (x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0))
-        {//if print out of range
-            //notification generation
-            QMessageBox msgBox;
-            msgBox.setWindowTitle("Ошибка");
-            msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int res = msgBox.exec();
-            switch (res)
-            {//check push button
-            case QMessageBox::Yes:
-            {//push button yes
-                int a, r, g, b;
-                QColor color = QColorDialog::getColor();
+        if ((styleLine) or (styleBrush))
+        {
+            if ((x + width > ui->widget->width()) or (y + height > ui->widget->height()) or (x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0))
+            {//if print out of range
+                //notification generation
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Ошибка");
+                msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int res = msgBox.exec();
+                switch (res)
+                {//check push button
+                case QMessageBox::Yes:
+                {//push button yes
+                    //init color
+                    bool error = 0;
 
-                if (color.isValid())
-                {//if choose OK in color dialog menu
-                    color.getRgb(&r, &g, &b, &a);
-                    rect.setRGBA(r, g, b, a);
+                    if (styleLine)
+                    {
+                        int a = 255, r, g, b;
+                        QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
+                        if (color.isValid())
+                        {
+                            color.getRgb(&r, &g, &b, &a);
+                            rect.pen.setRGBA(r, g, b, a);
+                            rect.pen.setWidth(int(widthPen));
+                            rect.pen.setStyle(styleLine);
+                        }
+                        else
+                            error = 1;
+                    }
 
-                    //set coord in rect
-                    rect.start.setXY(x, y);
-                    rect.setWidthAndHeight(width, height);
+                    if (styleBrush)
+                    {
+                        int a = 255, r, g, b;
+                        QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет заливки");
+                        if (color.isValid())
+                        {
+                            color.getRgb(&r, &g, &b, &a);
+                            rect.brush.setRGBA(r, g, b, a);
+                            rect.brush.setStyle(styleBrush);
+                        }
+                        else
+                            error = 1;
+                    }
 
-                    rect.setWidthPen(int(widthPen));
+
+                    if (!error)
+                    {
+                        rect.start.setXY(x, y); //set coord in rect
+                        rect.setWidthAndHeight(width, height); //set width and height rect
+
+                        rect.draw(ui->widget->im);
+                        update();
+                    }
+
+                    break;
+                }
+                case QMessageBox::No:
+                {
+                    break;
+                }
+                }
+            }
+            else
+            {
+                bool error = 0;
+
+                if (styleLine)
+                {
+                    int a = 255, r, g, b;
+                    QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
+                    if (color.isValid())
+                    {
+                        color.getRgb(&r, &g, &b, &a);
+                        rect.pen.setRGBA(r, g, b, a);
+                        rect.pen.setWidth(int(widthPen));
+                        rect.pen.setStyle(styleLine);
+                    }
+                    else
+                        error = 1;
+                }
+
+                if (styleBrush)
+                {
+                    int a = 255, r, g, b;
+                    QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет заливки");
+                    if (color.isValid())
+                    {
+                        color.getRgb(&r, &g, &b, &a);
+                        rect.brush.setRGBA(r, g, b, a);
+                        rect.brush.setStyle(styleBrush);
+                    }
+                    else
+                        error = 1;
+                }
+
+
+                if (!error)
+                {
+                    rect.start.setXY(x, y); //set coord in rect
+                    rect.setWidthAndHeight(width, height); //set width and height rect
+
                     rect.draw(ui->widget->im);
                     update();
                 }
-                break;
-            }
-            case QMessageBox::No:
-            {
-                break;
-            }
-            }
-        }
-        else
-        {
-            //init color
-            int a, r, g, b;
-            QColor color = QColorDialog::getColor();
-
-            if (color.isValid())
-            {//if choose OK in color dialog menu
-                color.getRgb(&r, &g, &b, &a);
-                rect.setRGBA(r, g, b, a);
-
-                rect.start.setXY(x, y); //set coord in rect
-                rect.setWidthAndHeight(width, height); //set width and height rect
-
-                rect.setWidthPen(int(widthPen)); //set width Pen
-                rect.draw(ui->widget->im);
-                update();
-                break;
             }
         }
         break;
@@ -323,6 +395,8 @@ void MainWindow::settings()
     ui->spinBox_inputX_2->setButtonSymbols(QAbstractSpinBox::NoButtons);
     ui->spinBox_inputY_2->setButtonSymbols(QAbstractSpinBox::NoButtons);
     ui->spinBox_inputWidth->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    ui->spinBox_inputStartAngle->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    ui->spinBox_inputDrawAngle->setButtonSymbols(QAbstractSpinBox::NoButtons);
 
     //set range
     ui->spinBox_inputX_1->setRange(0, 1060);
@@ -330,12 +404,22 @@ void MainWindow::settings()
     ui->spinBox_inputX_2->setRange(0, 1060);
     ui->spinBox_inputY_2->setRange(0, 660);
     ui->spinBox_inputWidth->setRange(1, 100);
+    ui->spinBox_inputStartAngle->setRange(0, 360);
+    ui->spinBox_inputDrawAngle->setRange(0, 360);
 
     //hide extra lines
     ui->label_inputX_2->setVisible(false);
     ui->label_inputY_2->setVisible(false);
+    ui->label_inputStartAngle->setVisible(false);
+    ui->label_inputDrawAngle->setVisible(false);
     ui->spinBox_inputX_2->setVisible(false);
     ui->spinBox_inputY_2->setVisible(false);
+    ui->spinBox_inputDrawAngle->setVisible(false);
+    ui->spinBox_inputStartAngle->setVisible(false);
+    ui->comboBox_styleLine->setVisible(false);
+    ui->label_styleLine->setVisible(false);
+    ui->label_styleBrush->setVisible(false);
+    ui->comboBox_styleBrush->setVisible(false);
 }
 
 void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra lines
@@ -354,6 +438,12 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
         ui->label_inputY_2->setVisible(false);
         ui->spinBox_inputX_2->setVisible(false);
         ui->spinBox_inputY_2->setVisible(false);
+
+        ui->comboBox_styleLine->setVisible(false);
+        ui->label_styleLine->setVisible(false);
+
+        ui->label_styleBrush->setVisible(false);
+        ui->comboBox_styleBrush->setVisible(false);
     }
     else if (index == 1) //choose line
     {
@@ -371,6 +461,12 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
         ui->label_inputY_2->setVisible(true);
         ui->spinBox_inputX_2->setVisible(true);
         ui->spinBox_inputY_2->setVisible(true);
+
+        ui->comboBox_styleLine->setVisible(true);
+        ui->label_styleLine->setVisible(true);
+
+        ui->label_styleBrush->setVisible(false);
+        ui->comboBox_styleBrush->setVisible(false);
     }
     else if (index == 2) //choose rectange
     {
@@ -383,6 +479,12 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
         ui->label_inputY_2->setVisible(true);
         ui->spinBox_inputX_2->setVisible(true);
         ui->spinBox_inputY_2->setVisible(true);
+
+        ui->comboBox_styleLine->setVisible(true);
+        ui->label_styleLine->setVisible(true);
+
+        ui->label_styleBrush->setVisible(true);
+        ui->comboBox_styleBrush->setVisible(true);
     }
     else if (index == 3) //choose ellipse
     {
@@ -395,5 +497,11 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
         ui->label_inputY_2->setVisible(true);
         ui->spinBox_inputX_2->setVisible(true);
         ui->spinBox_inputY_2->setVisible(true);
+
+        ui->comboBox_styleLine->setVisible(true);
+        ui->label_styleLine->setVisible(true);
+
+        ui->label_styleBrush->setVisible(true);
+        ui->comboBox_styleBrush->setVisible(true);
     }
 }

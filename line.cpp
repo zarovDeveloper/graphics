@@ -11,20 +11,53 @@ void line::draw(QImage &im)
     QPainter painter(&im);
     QColor color;
 
-    color.setRgb(red, green, blue, alpha);
+    int r, g, b, a;
+    pen.getRGBA(r, g, b, a);
 
-    QPen pen;
-    pen.setWidth(w);
-    pen.setColor(color);
+    color.setRgb(r, g, b, a);
 
-    painter.setPen(pen);
+    QPen qpen;
+    qpen.setWidth(pen.getWidth());
+    qpen.setColor(color);
+
+    switch (pen.getStyle())
+    {
+    case 0:
+    {//choose No Pen(   )
+        qpen.setStyle(Qt::NoPen);
+        break;
+    }
+    case 1:
+    {//choose solid line(------)
+        qpen.setStyle(Qt::SolidLine);
+        break;
+    }
+    case 2:
+    {//choose dash line (- - - - - -)
+        qpen.setStyle(Qt::DashLine);
+        break;
+    }
+    case 3:
+    {//choose dot line (.....)
+        qpen.setStyle(Qt::DotLine);
+        break;
+    }
+    case 4:
+    {//choose dash and dot line(-.-.-.-.-)
+        qpen.setStyle(Qt::DashDotLine);
+        break;
+    }
+    case 5:
+    {//choose dash dot dot line (-..-..-..-)
+        qpen.setStyle(Qt::DashDotDotLine);
+        break;
+    }
+    }
+
+    painter.setPen(qpen);
+
     int x1, x2, y1, y2;
     start.getXY(x1, y1);
     end.getXY(x2,y2);
     painter.drawLine(x1, y1, x2, y2);
-}
-
-void line::setWidth(int width)
-{
-    w = width;
 }

@@ -33,7 +33,10 @@ SOURCES += \
     myWidget.cpp \
     pixel.cpp \
     rect.cpp \
-    ellipse.cpp
+    ellipse.cpp \
+    arc.cpp \
+    pen.cpp \
+    brush.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +46,10 @@ HEADERS += \
     myWidget.h \
     pixel.h \
     rect.h \
-    ellipse.h
+    ellipse.h \
+    arc.h \
+    pen.h \
+    brush.h
 
 FORMS += \
         mainwindow.ui
