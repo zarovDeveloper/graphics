@@ -2,11 +2,12 @@
 #define ELLIPSE_H
 
 #include "point.h"
-#include "color.h"
+#include "pen.h"
+#include "brush.h"
 #include <QImage>
 #include <QPainter>
 
-class ellipse : public color
+class ellipse
 {
 public:
     ellipse();
@@ -15,15 +16,15 @@ public:
 
     void setWidthAndHeight(int width, int height);
 
-    void setWidthPen(int width);
-
     point start;
+
+    pen pen;
+    brush brush;
 
 private:
 
     int width, height;
 
-    int widthPen;
 };
 
 #endif // ELLIPSE_H

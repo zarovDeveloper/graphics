@@ -9,7 +9,7 @@
 #include "line.h"
 #include "rect.h"
 #include "ellipse.h"
-
+#include "arc.h"
 
 
 namespace Ui {

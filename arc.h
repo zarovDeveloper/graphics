@@ -2,11 +2,12 @@
 #define ARC_H
 
 #include "point.h"
-#include "color.h"
+#include "pen.h"
+#include "brush.h"
 #include <QImage>
 #include <QPainter>
 
-class arc : public color
+class arc
 {
 public:
     arc();
@@ -19,15 +20,14 @@ public:
 
     void setDrawAngle(int angle);
 
-    void setWidthPen(int width);
-
     point start;
+
+    pen pen;
+    brush brush;
 
 private:
 
     int width, height;
-
-    int widthPen;
 
     int startAngle;
 
