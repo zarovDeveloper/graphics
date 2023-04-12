@@ -9,9 +9,9 @@ public:
 
     //setter
 
-    void setX(int newX);
-    void setY(int newY);
-    void setXY(int newX, int newY);
+    bool setX(int newX);
+    bool setY(int newY);
+    bool setXY(int newX, int newY);
 
     //getter
 

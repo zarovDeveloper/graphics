@@ -2,28 +2,43 @@
 
 pen::pen() //конструктор
 {
+    //standart val
     width=1;
     style=1;
 }
 
-bool pen::setWidth(int n_width)
+
+//setter
+
+
+bool pen::setWidth(int n_width) //set width
 {
+    if (n_width < 0 or n_width > 100) //check correct val
+        return 0;
+
     width = n_width;
     return(1);
 }
 
-int pen::getWidth(void)
+bool pen::setStyle(int n_style) //set style
 {
-    return(width);
-}
+    if (n_style < 0 or n_style > 7) //check correct val
+        return 0;
 
-bool pen::setStyle(int n_style)
-{
     style = n_style;
     return(1);
 }
 
-int pen::getStyle(void)
+
+//getter
+
+
+int pen::getWidth(void) //get width
+{
+    return(width);
+}
+
+int pen::getStyle(void) //get style
 {
     return(style);
 }

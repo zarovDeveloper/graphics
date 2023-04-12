@@ -14,9 +14,8 @@ void myWidget::paintEvent(QPaintEvent *) //paint
         painter.drawImage(0, 0, im);
     }
     else
-    {
-        //Error
-    }
+        QMessageBox::information(this, "Ошибка", "Непредвиденная ошибка", QMessageBox::Ok);
+
 }
 
 
@@ -26,7 +25,7 @@ void myWidget::createIm(int sizeX, int sizeY) //init image
     imCreated = true;
 }
 
-void myWidget::clear()
+void myWidget::clear() //clear image
 {
     im.fill(0);
     imCreated = true;

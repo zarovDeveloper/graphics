@@ -14,7 +14,7 @@ public:
 
     void draw(QImage &im);
 
-    void setWidth(int width);
+    bool setWidth(int width);
 
 private:
     int w;

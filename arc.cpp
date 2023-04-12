@@ -1,17 +1,24 @@
 #include "arc.h"
 
-arc::arc()
+arc::arc() //constructor
 {
-
+    //standart value
+    width = 0;
+    height = 0;
+    startAngle = 0;
+    drawAngle = 0;
 }
 
-void arc::draw(QImage &im)
+
+void arc::draw(QImage &im) //draw arc
 {
+    //create
     QPainter painter(&im);
     QColor color;
     QPen qpen;
     QBrush qbrush;
 
+    //set pen color
     int r, g, b, a;
     pen.getRGBA(r, g, b, a);
 
@@ -20,7 +27,7 @@ void arc::draw(QImage &im)
     qpen.setWidth(pen.getWidth());
     qpen.setColor(color);
 
-    switch (pen.getStyle())
+    switch (pen.getStyle()) //style line
     {
     case 0:
     {//choose No Pen(   )
@@ -54,11 +61,12 @@ void arc::draw(QImage &im)
     }
     }
 
+    //set brush color
     brush.getRGBA(r, g, b, a);
     color.setRgb(r, g, b, a);
 
     qbrush.setColor(color);
-    switch (brush.getStyle())
+    switch (brush.getStyle()) //style brush
     {
     case 0:
     {//choose no brush
@@ -92,27 +100,47 @@ void arc::draw(QImage &im)
     }
     }
 
+    //set brush and pen in painter
     painter.setPen(qpen);
     painter.setBrush(qbrush);
 
+    //drawing arc
     int x, y;
     start.getXY(x, y);
     painter.drawArc(x, y, width, height, startAngle, drawAngle);
 }
 
 
-void arc::setWidthAndHeight(int w, int h)
+//setter
+
+
+bool arc::setWidthAndHeight(int w, int h) //set width and height in arc
 {
+    if (w > 1060 or h > 800 or w < 0 or h < 0) //check correct val
+        return 0;
+
     width = w;
     height = h;
+    return 1;
+
 }
 
-void arc::setStartAngle(int angle)
+bool arc::setStartAngle(int angle) //set start angle in arc
 {
+    if (angle > 360 or angle < 0) //check correct val
+        return 0;
+
     startAngle = angle;
+    return 1;
+
 }
 
-void arc::setDrawAngle(int angle)
+bool arc::setDrawAngle(int angle) //set draw angle in arc
 {
+    if (angle > 360 or angle < -360) //check correct val
+        return 0;
+
     drawAngle = angle * 16;
+    return 1;
+
 }

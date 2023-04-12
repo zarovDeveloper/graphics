@@ -2,16 +2,20 @@
 
 rect::rect() //constructor
 {
-
+    //standart value
+    w = 0;
+    h = 0;
 }
 
-void rect::draw(QImage &im)
+void rect::draw(QImage &im) //draw rect
 {
     QPainter painter(&im);
     QColor color;
     QPen qpen;
     QBrush qbrush;
 
+
+    //set pen color
     int r, g, b, a;
     pen.getRGBA(r, g, b, a);
 
@@ -20,7 +24,7 @@ void rect::draw(QImage &im)
     qpen.setWidth(pen.getWidth());
     qpen.setColor(color);
 
-    switch (pen.getStyle())
+    switch (pen.getStyle()) //choose line style
     {
     case 0:
     {//choose No Pen(   )
@@ -54,11 +58,12 @@ void rect::draw(QImage &im)
     }
     }
 
+    //set brush color
     brush.getRGBA(r, g, b, a);
     color.setRgb(r, g, b, a);
 
     qbrush.setColor(color);
-    switch (brush.getStyle())
+    switch (brush.getStyle()) //choose brush style
     {
     case 0:
     {//choose no brush
@@ -92,17 +97,17 @@ void rect::draw(QImage &im)
     }
     }
 
+    //set pen and brush in painter
     painter.setPen(qpen);
     painter.setBrush(qbrush);
 
-    int x, y;
+    //drawing rect
+    int x, y, x1, y1;
     start.getXY(x, y);
+    end.getXY(x1, y1);
+
+    w = abs(x1 - x);
+    h = abs(y1 - y);
+
     painter.drawRect(x, y, w, h);
 }
-
-void rect::setWidthAndHeight(int widthH, int height)
-{
-    w = widthH;
-    h = height;
-}
-

@@ -14,9 +14,8 @@ public:
 
     void draw(QImage &im);
 
-    void setWidthAndHeight(int width, int height);
-
     point start;
+    point end;
 
     pen pen;
     brush brush;

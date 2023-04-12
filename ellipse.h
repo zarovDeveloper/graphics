@@ -7,23 +7,21 @@
 #include <QImage>
 #include <QPainter>
 
-class ellipse
+class ellipse : public point
 {
 public:
     ellipse();
 
     void draw(QImage &im);
 
-    void setWidthAndHeight(int width, int height);
-
-    point start;
+    bool setRadAndRad1(int rad, int rad1);
 
     pen pen;
     brush brush;
 
 private:
 
-    int width, height;
+    int radius, radius1;
 
 };
 

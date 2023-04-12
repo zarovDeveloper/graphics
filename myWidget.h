@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QMessageBox>
 
 class myWidget : public QWidget
 {

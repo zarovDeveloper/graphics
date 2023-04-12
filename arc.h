@@ -14,11 +14,11 @@ public:
 
     void draw(QImage &im);
 
-    void setWidthAndHeight(int width, int height);
+    bool setWidthAndHeight(int width, int height);
 
-    void setStartAngle(int angle);
+    bool setStartAngle(int angle);
 
-    void setDrawAngle(int angle);
+    bool setDrawAngle(int angle);
 
     point start;
 

@@ -186,8 +186,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         //init coord, width and height
         int x = ui->spinBox_inputX_1->value();
         int y = ui->spinBox_inputY_1->value();
-        int width = ui->spinBox_inputX_2->value();
-        int height = ui->spinBox_inputY_2->value();
+        int x1 = ui->spinBox_inputX_2->value();
+        int y1 = ui->spinBox_inputY_2->value();
 
         double widthPen = ui->spinBox_inputWidth->value(); //init width pen
         int styleLine = ui->comboBox_styleLine->currentIndex();
@@ -195,7 +195,7 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
         if ((styleLine) or (styleBrush))
         {
-            if ((x + width > ui->widget->width()) or (y + height > ui->widget->height()) or (x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0))
+            if ((x + x1 > ui->widget->width()) or (y + y1 > ui->widget->height()) or (x + x1 / 2 > ui->widget->width()) or (x - x1 / 2 < 0) or (y + x1 / 2 > ui->widget->height()) or (y - x1 / 2 < 0))
             {//if print out of range
                 //notification generation
                 QMessageBox msgBox;
@@ -243,8 +243,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
                     if (!error)
                     {
-                        rect.start.setXY(x, y); //set coord in rect
-                        rect.setWidthAndHeight(width, height); //set width and height rect
+                        rect.start.setXY(x, y); //set left top coord in rect
+                        rect.end.setXY(x1, y1); //set right buttom coord in rect
 
                         rect.draw(ui->widget->im);
                         update();
@@ -294,8 +294,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
                 if (!error)
                 {
-                    rect.start.setXY(x, y); //set coord in rect
-                    rect.setWidthAndHeight(width, height); //set width and height rect
+                    rect.start.setXY(x, y); //set left top coord in rect
+                    rect.end.setXY(x1, y1); //set right buttom coord in rect
 
                     rect.draw(ui->widget->im);
                     update();
@@ -311,8 +311,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         //init coord, width and height
         int x = ui->spinBox_inputX_1->value();
         int y = ui->spinBox_inputY_1->value();
-        int width = ui->spinBox_inputX_2->value();
-        int height = ui->spinBox_inputY_2->value();
+        int rad = ui->spinBox_inputX_2->value();
+        int rad1 = ui->spinBox_inputY_2->value();
 
         double widthPen = ui->spinBox_inputWidth->value(); //init width pen
         int styleLine = ui->comboBox_styleLine->currentIndex();
@@ -320,7 +320,7 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
         if ((styleLine) or (styleBrush))
         {
-            if ((x + width > ui->widget->width()) or (y + height > ui->widget->height()) or (x + width / 2 > ui->widget->width()) or (x - width / 2 < 0) or (y + width / 2 > ui->widget->height()) or (y - width / 2 < 0))
+            if ((x + rad > ui->widget->width()) or (y + rad1 > ui->widget->height()) or (x + rad / 2 > ui->widget->width()) or (x - rad / 2 < 0) or (y + rad / 2 > ui->widget->height()) or (y - rad / 2 < 0))
             {//if print out of range
                 //notification generation
                 QMessageBox msgBox;
@@ -368,8 +368,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
                     if (!error)
                     {
-                        ellipse.start.setXY(x, y); //set coord in rect
-                        ellipse.setWidthAndHeight(width, height); //set width and height rect
+                        ellipse.setXY(x, y); //set coord in rect
+                        ellipse.setRadAndRad1(rad, rad1); //set width and height rect
 
                         ellipse.draw(ui->widget->im);
                         update();
@@ -419,8 +419,8 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
 
                 if (!error)
                 {
-                    ellipse.start.setXY(x, y); //set coord in rect
-                    ellipse.setWidthAndHeight(width, height); //set width and height rect
+                    ellipse.setXY(x, y); //set coord in rect
+                    ellipse.setRadAndRad1(rad, rad1); //set width and height rect
 
                     ellipse.draw(ui->widget->im);
                     update();
@@ -523,7 +523,6 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
     }
 }
 
-
 void MainWindow::on_pushButton_clear_clicked() //button "Отчистить"
 {//clear widget
     ui->widget->clear();
@@ -552,7 +551,7 @@ void MainWindow::settings()
     ui->spinBox_inputY_2->setRange(0, 660);
     ui->spinBox_inputWidth->setRange(1, 100);
     ui->spinBox_inputStartAngle->setRange(0, 360);
-    ui->spinBox_inputDrawAngle->setRange(0, 360);
+    ui->spinBox_inputDrawAngle->setRange(-360, 360);
 
     //hide extra lines
     ui->label_inputX_2->setVisible(false);
@@ -573,8 +572,8 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
 {
     if (index == 0) //choose pixel
     {
-        ui->label_inputX_1->setText("Input X:");
-        ui->label_inputY_1->setText("Input Y:");
+        ui->label_inputX_1->setText("Введите X:");
+        ui->label_inputY_1->setText("Введите Y:");
 
         ui->label_inputX_1->setVisible(true);
         ui->label_inputY_1->setVisible(true);
@@ -600,10 +599,10 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 1) //choose line
     {
-        ui->label_inputX_1->setText("Input X1:");
-        ui->label_inputY_1->setText("Input Y1:");
-        ui->label_inputX_2->setText("Input X2:");
-        ui->label_inputY_2->setText("Input Y2:");
+        ui->label_inputX_1->setText("Введите X1:");
+        ui->label_inputY_1->setText("Введите Y1:");
+        ui->label_inputX_2->setText("Введите X2:");
+        ui->label_inputY_2->setText("Введите Y2:");
 
         ui->label_inputX_1->setVisible(true);
         ui->label_inputY_1->setVisible(true);
@@ -629,10 +628,10 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 2) //choose rectange
     {
-        ui->label_inputX_1->setText("Input X:");
-        ui->label_inputY_1->setText("Input Y:");
-        ui->label_inputX_2->setText("Width:");
-        ui->label_inputY_2->setText("Height:");
+        ui->label_inputX_1->setText("Введите X1:");
+        ui->label_inputY_1->setText("Введите Y1:");
+        ui->label_inputX_2->setText("Введите X2:");
+        ui->label_inputY_2->setText("Введите Y2:");
 
         ui->label_inputX_2->setVisible(true);
         ui->label_inputY_2->setVisible(true);
@@ -653,10 +652,10 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 3) //choose ellipse
     {
-        ui->label_inputX_1->setText("Input X:");
-        ui->label_inputY_1->setText("Input Y:");
-        ui->label_inputX_2->setText("Width:");
-        ui->label_inputY_2->setText("Height:");
+        ui->label_inputX_1->setText("Введите X:");
+        ui->label_inputY_1->setText("Введите Y:");
+        ui->label_inputX_2->setText("Радиус 1:");
+        ui->label_inputY_2->setText("Радиус 2:");
 
         ui->label_inputX_2->setVisible(true);
         ui->label_inputY_2->setVisible(true);
@@ -677,10 +676,10 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
     }
     else if (index == 4) //choose arc
     {
-        ui->label_inputX_1->setText("Input X:");
-        ui->label_inputY_1->setText("Input Y:");
-        ui->label_inputX_2->setText("Width:");
-        ui->label_inputY_2->setText("Height:");
+        ui->label_inputX_1->setText("Введите X:");
+        ui->label_inputY_1->setText("Введите Y:");
+        ui->label_inputX_2->setText("Ширина:");
+        ui->label_inputY_2->setText("Высота:");
 
         ui->label_inputX_2->setVisible(true);
         ui->label_inputY_2->setVisible(true);

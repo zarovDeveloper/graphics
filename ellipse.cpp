@@ -1,20 +1,21 @@
 #include "ellipse.h"
 
-ellipse::ellipse()
+ellipse::ellipse() //constructor
 {
-    width = 0;
-    height = 0;
+    //standart val
+    radius = 0;
+    radius1 = 0;
 }
 
 
-void ellipse::draw(QImage &im)
+void ellipse::draw(QImage &im) //draw ellipse
 {
-
     QPainter painter(&im);
     QColor color;
     QPen qpen;
     QBrush qbrush;
 
+    //set pen color
     int r, g, b, a;
     pen.getRGBA(r, g, b, a);
 
@@ -23,7 +24,7 @@ void ellipse::draw(QImage &im)
     qpen.setWidth(pen.getWidth());
     qpen.setColor(color);
 
-    switch (pen.getStyle())
+    switch (pen.getStyle()) //choose style line
     {
     case 0:
     {//choose No Pen(   )
@@ -57,11 +58,12 @@ void ellipse::draw(QImage &im)
     }
     }
 
+    //set brush color
     brush.getRGBA(r, g, b, a);
     color.setRgb(r, g, b, a);
 
     qbrush.setColor(color);
-    switch (brush.getStyle())
+    switch (brush.getStyle()) //choose style brush
     {
     case 0:
     {//choose no brush
@@ -95,19 +97,28 @@ void ellipse::draw(QImage &im)
     }
     }
 
+    //set pen and brush
     painter.setPen(qpen);
     painter.setBrush(qbrush);
 
+    //drawing ellipse
     int x, y;
-    start.getXY(x, y);
-    painter.drawEllipse(x, y, width, height);
+    getXY(x, y);
+    painter.drawEllipse(x, y, radius * 2, radius1 * 2);
 }
 
 
-void ellipse::setWidthAndHeight(int w, int h)
+//setter
+
+
+bool ellipse::setRadAndRad1(int r, int r1) //set width and height in ellipse
 {
-    width = w;
-    height = h;
+    if (r < 0 or r1 < 0 or r > 10000 or r1 > 1000) //check correct val
+        return 0;
+
+    radius = r;
+    radius1 = r1;
+    return 1;
 }
 
 

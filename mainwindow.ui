@@ -97,7 +97,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input X:</string>
+     <string>Введите X:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_inputY_1">
@@ -115,7 +115,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input Y:</string>
+     <string>Введите Y:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_inputX_1">
@@ -163,7 +163,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input Y2:</string>
+     <string>Введите Y2:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_inputX_2">
@@ -181,7 +181,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Input X2:</string>
+     <string>Введите X2:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_inputY_2">
@@ -280,7 +280,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Start angle:</string>
+     <string>Угол старта:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_inputStartAngle">
@@ -313,7 +313,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Drawing angle:</string>
+     <string>Угол рисования:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_inputDrawAngle">
@@ -370,27 +370,27 @@
     </item>
     <item>
      <property name="text">
-      <string>Сплошная линия</string>
+      <string>Сплошная</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Пунктирная линия</string>
+      <string>Пунктирная</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Точечная линия</string>
+      <string>Точечная</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Пунктирно-точечная линия</string>
+      <string>Пунктирно-точечная</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Пунктир - точка - точка линия</string>
+      <string>Пунктир - точка - точка</string>
      </property>
     </item>
    </widget>
@@ -433,7 +433,7 @@
     </item>
     <item>
      <property name="text">
-      <string>Сплошная заливка</string>
+      <string>Сплошная</string>
      </property>
     </item>
     <item>
@@ -464,7 +464,7 @@
      <x>0</x>
      <y>0</y>
      <width>1520</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

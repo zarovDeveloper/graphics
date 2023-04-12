@@ -6,11 +6,12 @@ line::line() //constructor
 }
 
 
-void line::draw(QImage &im)
+void line::draw(QImage &im) //drawing line
 {
     QPainter painter(&im);
     QColor color;
 
+    //set pen color
     int r, g, b, a;
     pen.getRGBA(r, g, b, a);
 
@@ -20,7 +21,7 @@ void line::draw(QImage &im)
     qpen.setWidth(pen.getWidth());
     qpen.setColor(color);
 
-    switch (pen.getStyle())
+    switch (pen.getStyle()) //set line style
     {
     case 0:
     {//choose No Pen(   )
@@ -54,8 +55,10 @@ void line::draw(QImage &im)
     }
     }
 
+    //set pen in painter
     painter.setPen(qpen);
 
+    //drawing line
     int x1, x2, y1, y2;
     start.getXY(x1, y1);
     end.getXY(x2,y2);
