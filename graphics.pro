@@ -36,7 +36,8 @@ SOURCES += \
     ellipse.cpp \
     arc.cpp \
     pen.cpp \
-    brush.cpp
+    brush.cpp \
+    circle.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     ellipse.h \
     arc.h \
     pen.h \
-    brush.h
+    brush.h \
+    circle.h
 
 FORMS += \
         mainwindow.ui

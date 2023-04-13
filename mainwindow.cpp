@@ -520,6 +520,130 @@ void MainWindow::on_pushButton_draw_clicked() //button "Рисовать"
         }
         break;
     }
+    case 5: //circle
+    {
+        //val
+        circle circle;
+        //init coord, width and height
+        int x = ui->spinBox_inputX_1->value();
+        int y = ui->spinBox_inputY_1->value();
+        int rad = ui->spinBox_inputX_2->value();
+
+        double widthPen = ui->spinBox_inputWidth->value(); //init width pen
+        int styleLine = ui->comboBox_styleLine->currentIndex();
+        int styleBrush = ui->comboBox_styleBrush->currentIndex();
+
+        if ((styleLine) or (styleBrush))
+        {
+            if ((x + rad > ui->widget->width()) or (y + rad > ui->widget->height()) or (x + rad / 2 > ui->widget->width()) or (x - rad / 2 < 0) or (y + rad / 2 > ui->widget->height()) or (y - rad / 2 < 0))
+            {//if print out of range
+                //notification generation
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Ошибка");
+                msgBox.setText("Рисунок выйдет за границы поля.\nВы хотите продолжить?");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::Yes);
+                int res = msgBox.exec();
+                switch (res)
+                {//check push button
+                case QMessageBox::Yes:
+                {//push button yes
+                    //init color
+                    bool error = 0;
+
+                    if (styleLine)
+                    {
+                        int a = 255, r, g, b;
+                        QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
+                        if (color.isValid())
+                        {
+                            color.getRgb(&r, &g, &b, &a);
+                            circle.pen.setRGBA(r, g, b, a);
+                            circle.pen.setWidth(int(widthPen));
+                            circle.pen.setStyle(styleLine);
+                        }
+                        else
+                            error = 1;
+                    }
+
+                    if (styleBrush)
+                    {
+                        int a = 255, r, g, b;
+                        QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет заливки");
+                        if (color.isValid())
+                        {
+                            color.getRgb(&r, &g, &b, &a);
+                            circle.brush.setRGBA(r, g, b, a);
+                            circle.brush.setStyle(styleBrush);
+                        }
+                        else
+                            error = 1;
+                    }
+
+
+                    if (!error)
+                    {
+                        circle.setXY(x, y); //set coord in rect
+                        circle.setRadius(rad); //set width and height rect
+
+                        circle.draw(ui->widget->im);
+                        update();
+                    }
+
+                    break;
+                }
+                case QMessageBox::No:
+                {
+                    break;
+                }
+                }
+            }
+            else
+            {
+                bool error = 0;
+
+                if (styleLine)
+                {
+                    int a = 255, r, g, b;
+                    QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет линии");
+                    if (color.isValid())
+                    {
+                        color.getRgb(&r, &g, &b, &a);
+                        circle.pen.setRGBA(r, g, b, a);
+                        circle.pen.setWidth(int(widthPen));
+                        circle.pen.setStyle(styleLine);
+                    }
+                    else
+                        error = 1;
+                }
+
+                if (styleBrush)
+                {
+                    int a = 255, r, g, b;
+                    QColor color = QColorDialog::getColor(Qt::white, nullptr, "Цвет заливки");
+                    if (color.isValid())
+                    {
+                        color.getRgb(&r, &g, &b, &a);
+                        circle.brush.setRGBA(r, g, b, a);
+                        circle.brush.setStyle(styleBrush);
+                    }
+                    else
+                        error = 1;
+                }
+
+
+                if (!error)
+                {
+                    circle.setXY(x, y); //set coord in rect
+                    circle.setRadius(rad); //set width and height rect
+
+                    circle.draw(ui->widget->im);
+                    update();
+                }
+            }
+        }
+        break;
+    }
     }
 }
 
@@ -697,5 +821,28 @@ void MainWindow::on_comboBox_option_currentIndexChanged(int index) //hide extra 
 
         ui->spinBox_inputDrawAngle->setVisible(true);
         ui->spinBox_inputStartAngle->setVisible(true);
+    }
+    else if (index == 5) //choose circle
+    {
+        ui->label_inputX_1->setText("Введите X:");
+        ui->label_inputY_1->setText("Введите Y:");
+        ui->label_inputX_2->setText("Радиус:");
+
+        ui->label_inputX_2->setVisible(true);
+        ui->label_inputY_2->setVisible(false);
+        ui->spinBox_inputX_2->setVisible(true);
+        ui->spinBox_inputY_2->setVisible(false);
+
+        ui->comboBox_styleLine->setVisible(true);
+        ui->label_styleLine->setVisible(true);
+
+        ui->label_styleBrush->setVisible(true);
+        ui->comboBox_styleBrush->setVisible(true);
+
+        ui->label_inputDrawAngle->setVisible(false);
+        ui->label_inputStartAngle->setVisible(false);
+
+        ui->spinBox_inputDrawAngle->setVisible(false);
+        ui->spinBox_inputStartAngle->setVisible(false);
     }
 }

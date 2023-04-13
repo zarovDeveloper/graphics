@@ -81,6 +81,11 @@
       <string>Дуга</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Круг</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label_inputX_1">
     <property name="geometry">
@@ -464,7 +469,7 @@
      <x>0</x>
      <y>0</y>
      <width>1520</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -10,6 +10,7 @@
 #include "rect.h"
 #include "ellipse.h"
 #include "arc.h"
+#include "circle.h"
 
 
 namespace Ui {
